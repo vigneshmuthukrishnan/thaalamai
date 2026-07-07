@@ -319,7 +319,7 @@ function Services() {
             >
               <div className="mb-6 flex items-center justify-between">
                 <div className="grid h-14 w-14 place-items-center rounded-2xl bg-slate-50 transition group-hover:bg-white">
-                  <Icon size={28} className={accent} />
+                  <Icon size={38} className={accent} />
                 </div>
                 <span className="h-2 w-16 rounded-full bg-gradient-to-r from-ocean via-magenta to-ember opacity-60" />
               </div>
