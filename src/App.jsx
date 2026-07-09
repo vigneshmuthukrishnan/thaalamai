@@ -1,11 +1,15 @@
 import {
   ArrowRight,
   BarChart3,
+  Building2,
   CheckCircle2,
   ChevronRight,
   LineChart,
+  Mail,
+  MapPin,
   Megaphone,
   PenLine,
+  Phone,
   Rocket,
   Send,
   ShieldCheck,
@@ -99,6 +103,31 @@ const stats = [
   ["More", "Engagement"],
   ["More", "Reach"],
   ["More", "Growth"],
+];
+
+const contactDetails = [
+  {
+    label: "Office Address",
+    value: "No. 34, TPK Building\nChennimalai Block, Chennimalai\nChennimalai Road, Erode\nTamil Nadu, Erode District - 638002",
+    icon: MapPin,
+  },
+  {
+    label: "Mobile",
+    value: "8220470177",
+    href: "tel:+918220470177",
+    icon: Phone,
+  },
+  {
+    label: "Email",
+    value: "mamakutty1000@gmail.com",
+    href: "mailto:mamakutty1000@gmail.com",
+    icon: Mail,
+  },
+  // {
+  //   label: "Premises",
+  //   value: "Flat/Door/Block No. 34, TPK Building",
+  //   icon: Building2,
+  // },
 ];
 
 const heroLogos = [
@@ -418,11 +447,22 @@ function Contact() {
               <p className="mt-5 leading-8 text-white/78">
                 Tell us what you want to build. We will shape a social media plan for stronger presence and real results.
               </p>
-              <div className="mt-8 space-y-4">
-                {["Strategy-first social planning", "Platform-specific content", "Clear monthly performance reporting"].map((item) => (
-                  <div key={item} className="flex items-center gap-3">
-                    <CheckCircle2 size={20} />
-                    <span className="font-semibold">{item}</span>
+              <div className="mt-8 grid gap-3">
+                {contactDetails.map(({ label, value, href, icon: Icon }) => (
+                  <div key={label} className="flex gap-4 rounded-[1.25rem] border border-white/15 bg-white/10 p-4 backdrop-blur">
+                    <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-white text-violet">
+                      <Icon size={21} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-extrabold uppercase tracking-[0.2em] text-white/58">{label}</p>
+                      {href ? (
+                        <a href={href} className="mt-1 block break-words text-sm font-bold leading-6 text-white transition hover:text-orange-200">
+                          {value}
+                        </a>
+                      ) : (
+                        <p className="mt-1 whitespace-pre-line text-sm font-bold leading-6 text-white">{value}</p>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
