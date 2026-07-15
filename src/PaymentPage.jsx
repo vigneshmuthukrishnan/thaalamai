@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check, CreditCard, Mail, MapPin, Phone, Sparkles, User } from 'lucide-react';
-import { logoSrc, reikiPageLink, serviceOffer } from './serviceData';
+import { getServiceOfferByPaymentPath, logoSrc } from './serviceData';
+
+const cashfreeOrderUrl =
+  import.meta.env.VITE_CASHFREE_ORDER_URL ||
+  'https://mydreamstechnology.in/cashfree_api/create-order.php';
 
 function loadCashfreeSdk() {
   return new Promise((resolve, reject) => {
@@ -28,9 +32,11 @@ function loadCashfreeSdk() {
 }
 
 export default function PaymentPage() {
+  const serviceOffer = getServiceOfferByPaymentPath(window.location.pathname);
   const [customer, setCustomer] = useState({ name: '', email: '', phone: '' });
   const [status, setStatus] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const formattedAmount = `Rs. ${serviceOffer.amount}`;
 
   const updateCustomer = (field) => (event) => {
     setCustomer((current) => ({ ...current, [field]: event.target.value }));
@@ -42,7 +48,7 @@ export default function PaymentPage() {
     setStatus('Preparing secure Cashfree checkout...');
 
     try {
-      const response = await fetch('/api/cashfree/create-order', {
+      const response = await fetch(cashfreeOrderUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -53,7 +59,16 @@ export default function PaymentPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Cashfree order endpoint is not connected yet.');
+        const errorPayload = await response.json().catch(() => null);
+        const cashfreeMessage =
+          errorPayload?.cashfree?.message ||
+          errorPayload?.cashfree?.code ||
+          errorPayload?.details;
+        throw new Error(
+          cashfreeMessage
+            ? `${errorPayload?.message || 'Cashfree order creation failed.'} ${cashfreeMessage}`
+            : errorPayload?.message || 'Cashfree order creation failed.',
+        );
       }
 
       const order = await response.json();
@@ -64,15 +79,13 @@ export default function PaymentPage() {
       }
 
       const Cashfree = await loadCashfreeSdk();
-      const cashfree = Cashfree({ mode: 'sandbox' });
+      const cashfree = Cashfree({ mode: order.cashfree_mode || 'sandbox' });
       await cashfree.checkout({
         paymentSessionId,
         redirectTarget: '_self',
       });
     } catch (error) {
-      setStatus(
-        'Cashfree backend is not connected yet. Create /api/cashfree/create-order to generate a payment_session_id.',
-      );
+      setStatus(error.message || 'Cashfree checkout could not be started. Please try again.');
     } finally {
       setIsProcessing(false);
     }
@@ -82,7 +95,7 @@ export default function PaymentPage() {
     <main className="min-h-screen bg-[linear-gradient(180deg,#edf5ef_0%,#fffaf0_100%)] px-5 py-7 text-ink sm:px-7 lg:px-10 lg:py-10">
       <div className="mx-auto max-w-6xl">
         <header className="mb-7 flex items-center justify-center">
-          <a href={reikiPageLink} className="inline-flex flex-col items-center gap-2" aria-label="Back to THAALAM">
+          <a href={serviceOffer.pageLink} className="inline-flex flex-col items-center gap-2" aria-label="Back to THAALAM">
             <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white p-1 shadow-glow ring-1 ring-gold/25">
               <img src={logoSrc} alt="" className="h-full w-full rounded-full object-cover" />
             </span>
@@ -103,7 +116,7 @@ export default function PaymentPage() {
               <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_20%,rgba(20,32,29,0.76)_100%)]" />
               <div className="absolute bottom-5 left-5 right-5 text-white">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold">
-                  {serviceOffer.language} Workshop
+                  {serviceOffer.badge || `${serviceOffer.language} Program`}
                 </p>
                 <h1 className="mt-2 font-display text-3xl font-semibold leading-tight sm:text-4xl">
                   {serviceOffer.shortTitle}
@@ -113,7 +126,7 @@ export default function PaymentPage() {
 
             <div className="p-6 sm:p-8">
               <h2 className="text-xl font-extrabold leading-7 text-ink">
-                What to expect from this healing session
+                {serviceOffer.expectationsTitle || 'What to expect'}
               </h2>
               <div className="mt-5 space-y-3">
                 {serviceOffer.expectations.map((item, index) => (
@@ -140,18 +153,8 @@ export default function PaymentPage() {
               <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-ink sm:text-5xl">
                 Are you ready to reserve your seat?
               </h2>
-              <div className="mt-5 flex items-center justify-center gap-3">
-                {['00 Days', '08 Hours', '28 Minutes'].map((item) => (
-                  <span
-                    key={item}
-                    className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-gold text-center text-xs font-extrabold leading-4 text-forest shadow-glow"
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
               <p className="mt-6 text-2xl font-black text-ink">
-                Today Only ₹{serviceOffer.amount}
+                {serviceOffer.priceLabel || 'Registration Fee'} {formattedAmount}
                 <span className="ml-2 align-middle text-xs font-bold text-ink/58">
                   {serviceOffer.gstNote}
                 </span>
@@ -212,11 +215,11 @@ export default function PaymentPage() {
                     <p className="font-extrabold text-ink">{serviceOffer.shortTitle}</p>
                     <p className="mt-1 text-xs font-medium text-ink/55">{serviceOffer.duration}</p>
                   </div>
-                  <p className="font-black text-ink">₹{serviceOffer.amount}</p>
+                  <p className="font-black text-ink">{formattedAmount}</p>
                 </div>
                 <div className="flex items-center justify-between border-t border-forest/10 pt-4">
                   <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-ink/52">Total</p>
-                  <p className="text-xl font-black text-ink">₹{serviceOffer.amount}.00</p>
+                  <p className="text-xl font-black text-ink">{formattedAmount}.00</p>
                 </div>
               </div>
 

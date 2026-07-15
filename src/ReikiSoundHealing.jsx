@@ -30,7 +30,9 @@ import {
   Waves,
   Wind,
 } from 'lucide-react';
-import { logoSrc, paymentPageLink, phoneNumber } from './serviceData';
+import { logoSrc, paymentPageLink, phoneNumber, serviceOffer } from './serviceData';
+
+const demoClassPrice = `${serviceOffer.amount}Rs`;
 
 const eventDetails = [
   {
@@ -65,7 +67,7 @@ const eventDetails = [
   },
 ];
 const whatsappLink = `https://wa.me/91${phoneNumber}?text=${encodeURIComponent(
-  'Hi THAALAM, I want to reserve my seat for the Reiki + Sound Healing Experience.',
+  `Hi THAALAM, I want to reserve my seat for the Reiki + Sound Healing demo class (${demoClassPrice}).`,
 )}`;
 
 const painPoints = [
@@ -407,7 +409,7 @@ function ReikiSoundHealing() {
                   href={paymentPageLink}
                   className="premium-action inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-forest shadow-glow transition hover:-translate-y-0.5 hover:bg-[#d8a752]"
                 >
-                  Reserve My Seat Now
+                  Reserve for Demo Class ({demoClassPrice})
                   <ArrowRight size={18} />
                 </a>
                 <a
@@ -474,15 +476,15 @@ function ReikiSoundHealing() {
                   className="premium-action inline-flex items-center justify-center gap-2 rounded-full bg-forest px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-ink"
                 >
                   <Heart size={18} />
-                  I Want Inner Peace
+                  Reserve Demo Class ({demoClassPrice})
                 </a>
-                <a
+                {/* <a
                   href={paymentPageLink}
                   className="premium-action inline-flex items-center justify-center gap-2 rounded-full border border-forest/15 bg-white px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-forest transition hover:-translate-y-0.5 hover:bg-mist"
                 >
-                  Register Now (பதிவுக்கு)
+                  Register Demo Class ({demoClassPrice})
                   <ArrowRight size={18} />
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -765,7 +767,7 @@ function ReikiSoundHealing() {
                     className="premium-action flex w-full items-center justify-center gap-2 rounded-full bg-forest px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-ink"
                   >
                     <MessageCircle size={18} />
-                    Book My Healing Experience
+                    Book Demo Class ({demoClassPrice})
                   </a>
                   <a
                     href={`tel:+91${phoneNumber}`}
@@ -778,7 +780,7 @@ function ReikiSoundHealing() {
                     href={paymentPageLink}
                     className="premium-action flex w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-forest shadow-glow transition hover:-translate-y-0.5 hover:bg-[#d7aa5b]"
                   >
-                    Register Now (பதிவுக்கு)
+                    Register for Demo Class ({demoClassPrice})
                     <ArrowRight size={18} />
                   </a>
                 </div>
@@ -793,7 +795,7 @@ function ReikiSoundHealing() {
         className="fixed inset-x-4 bottom-4 z-30 flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-4 text-sm font-extrabold uppercase tracking-[0.1em] text-forest shadow-glow sm:hidden"
       >
         <MessageCircle size={18} />
-        Register Now (பதிவுக்கு)
+        Register Demo Class ({demoClassPrice})
       </a>
     </main>
   );

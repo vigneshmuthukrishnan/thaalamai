@@ -30,7 +30,7 @@ import {
 } from "react-icons/fa6";
 import PaymentPage from "./PaymentPage.jsx";
 import ReikiSoundHealing from "./ReikiSoundHealing.jsx";
-import { paymentPageLink, reikiPageLink } from "./serviceData.js";
+import { hasServiceOfferPaymentPath, reikiPageLink } from "./serviceData.js";
 
 const navItems = ["Platforms", "Services", "Why Us", "About", "Contact"];
 
@@ -543,7 +543,7 @@ export default function App() {
     return <ReikiSoundHealing />;
   }
 
-  if (isPagePath(paymentPageLink)) {
+  if (hasServiceOfferPaymentPath(currentPath)) {
     return <PaymentPage />;
   }
 
