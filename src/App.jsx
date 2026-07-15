@@ -28,6 +28,9 @@ import {
   FaXTwitter,
   FaYoutube,
 } from "react-icons/fa6";
+import PaymentPage from "./PaymentPage.jsx";
+import ReikiSoundHealing from "./ReikiSoundHealing.jsx";
+import { paymentPageLink, reikiPageLink } from "./serviceData.js";
 
 const navItems = ["Platforms", "Services", "Why Us", "About", "Contact"];
 
@@ -529,6 +532,16 @@ function Footer() {
 }
 
 export default function App() {
+  const currentPath = window.location.pathname.replace(/\/$/, "") || "/";
+
+  if (currentPath.toLowerCase() === reikiPageLink.toLowerCase()) {
+    return <ReikiSoundHealing />;
+  }
+
+  if (currentPath.toLowerCase() === paymentPageLink.toLowerCase()) {
+    return <PaymentPage />;
+  }
+
   return (
     <main>
       <Header />
