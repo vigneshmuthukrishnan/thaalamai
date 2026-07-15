@@ -532,13 +532,18 @@ function Footer() {
 }
 
 export default function App() {
-  const currentPath = window.location.pathname.replace(/\/$/, "") || "/";
+  const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+  const normalizedPath = currentPath.toLowerCase();
+  const isPagePath = (pageLink) => {
+    const normalizedPageLink = pageLink.toLowerCase();
+    return normalizedPath === normalizedPageLink || normalizedPath.endsWith(normalizedPageLink);
+  };
 
-  if (currentPath.toLowerCase() === reikiPageLink.toLowerCase()) {
+  if (isPagePath(reikiPageLink)) {
     return <ReikiSoundHealing />;
   }
 
-  if (currentPath.toLowerCase() === paymentPageLink.toLowerCase()) {
+  if (isPagePath(paymentPageLink)) {
     return <PaymentPage />;
   }
 
