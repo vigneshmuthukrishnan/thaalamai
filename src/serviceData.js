@@ -1,6 +1,7 @@
 export const phoneNumber = '8148098133';
 export const logoSrc = '/logo.jpeg';
 export const reikiPageLink = '/Reiki-Sound-Healing';
+export const shivashakthiAksharamPageLink = '/SHIVASHAKTHI-AKSHARAM';
 export const thirunangaiArulvakkuPageLink = '/THIRUNANGAI-ARULVAKKU';
 export const paymentPageLink = '/payment';
 const selectedServiceOfferStorageKey = 'thaalam:selected-service-offer';

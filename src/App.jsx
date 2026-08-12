@@ -34,6 +34,7 @@ import ThirunangaiArulvakku from "./ThirunangaiArulvakku.jsx";
 import {
   hasServiceOfferPaymentPath,
   reikiPageLink,
+  shivashakthiAksharamPageLink,
   thirunangaiArulvakkuPageLink,
 } from "./serviceData.js";
 
@@ -548,7 +549,7 @@ export default function App() {
     return <ReikiSoundHealing />;
   }
 
-  if (isPagePath(thirunangaiArulvakkuPageLink)) {
+  if (isPagePath(shivashakthiAksharamPageLink) || isPagePath(thirunangaiArulvakkuPageLink)) {
     return <ThirunangaiArulvakku />;
   }
 
