@@ -1,14 +1,13 @@
 export const phoneNumber = '8148098133';
 export const logoSrc = '/logo.jpeg';
 export const reikiPageLink = '/Reiki-Sound-Healing';
-export const shivashakthiAksharamPageLink = '/SHIVASHAKTHI-AKSHARAM';
-export const thirunangaiArulvakkuPageLink = '/THIRUNANGAI-ARULVAKKU';
+export const shivashakthiAksharamPageLink = '/shivashakthiAksharam';
 export const paymentPageLink = '/payment';
 const selectedServiceOfferStorageKey = 'thaalam:selected-service-offer';
 
 export const serviceOffers = [
   {
-    id: 'reiki-sound-healing-workshop',
+    id: 'reiki-sound-healing-workshop', 
     pageLink: reikiPageLink,
     paymentPageLink,
     title: 'THAALAM Reiki + Sound Healing Demo Class',

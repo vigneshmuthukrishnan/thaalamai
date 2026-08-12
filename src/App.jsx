@@ -35,7 +35,6 @@ import {
   hasServiceOfferPaymentPath,
   reikiPageLink,
   shivashakthiAksharamPageLink,
-  thirunangaiArulvakkuPageLink,
 } from "./serviceData.js";
 
 const navItems = ["Platforms", "Services", "Why Us", "About", "Contact"];
@@ -536,7 +535,7 @@ function Footer() {
     </footer>
   );
 }
-
+ 
 export default function App() {
   const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
   const normalizedPath = currentPath.toLowerCase();
@@ -549,7 +548,7 @@ export default function App() {
     return <ReikiSoundHealing />;
   }
 
-  if (isPagePath(shivashakthiAksharamPageLink) || isPagePath(thirunangaiArulvakkuPageLink)) {
+  if (isPagePath(shivashakthiAksharamPageLink)) {
     return <ThirunangaiArulvakku />;
   }
 
