@@ -31,24 +31,24 @@ const rasiItems = [
     name: 'மேஷம்',
     title: 'மேஷ ராசிக்காரர்கள் வாழ்க்கையில் வெற்றி பெற பிரச்சனைகள் தீர...',
     yantra: 'பால சண்முக ஷடாக்ஷர யந்திரம்',
-    images: ['rasi1.jpeg', 'rasi2.jpeg', 'rasi3.jpeg'],
-    writingImages: ['writing1.jpeg', 'writing2.jpeg', 'writing3.jpeg'],
+    images: ['rasi1.jpeg'],
+    writingImages: ['writing1.jpeg'],
   },
   {
     name: 'ரிஷபம்',
     title: 'ரிஷப ராசிக்காரர்கள் வாழ்க்கையில் வெற்றி பெற பிரச்சனைகள் தீர...',
     yantra:
       'திருநங்கை கைகளால் உங்களுக்கு மஹாலட்சுமி யந்திரம் எந்திரம் எழுதி பூஜை செய்து உருவேற்றி தரப்படும்',
-    images: ['rasi4.jpeg', 'rasi5.jpeg'],
-    writingImages: ['writing4.jpeg', 'writing5.jpeg'],
+    images: ['rasi5.jpeg'],
+    writingImages: ['writing4.jpeg'],
   },
   {
     name: 'மிதுனம்',
     title: 'மிதுன ராசிக்காரர்கள் வாழ்க்கையில் வெற்றி பெற பிரச்சனைகள் தீர...',
     yantra:
       'உங்கள் பிரச்சனைகளுக்கு ஏற்ப திருநங்கை கைகளால் உங்களுக்கு ஸ்ரீ தன ஆகர்ஷன யந்திரம் எழுதி பூஜை செய்து உருவேற்றி தரப்படும்.',
-    images: ['rasi6.jpeg', 'rasi7.jpeg', 'rasi8.jpeg'],
-    writingImages: ['writing6.jpeg', 'writing7.jpeg', 'writing8.jpeg'],
+    images: ['rasi6.jpeg'],
+    writingImages: ['writing8.jpeg'],
   },
   {
     name: 'கடகம்',
@@ -120,7 +120,7 @@ const rasiItems = [
     yantra:
       'திருநங்கை கைகளால் உங்களுக்கு ஸ்ரீ குபேர தன ஆகர்சண யந்திரம் எழுதி பூஜை செய்து உருவேற்றி தரப்படும்.',
     images: ['rasi17.jpeg'],
-    writingImages: ['writing19.jpeg', 'writing20.jpeg'],
+    writingImages: [ 'writing20.jpeg'],
   },
 ];
 
@@ -141,22 +141,31 @@ function imagePath(fileName) {
   return `${imageBasePath}/${fileName}`;
 }
 
+function ImageGrid({ images, getAlt, className = '' }) {
+  return (
+    <div className={`grid gap-1 bg-forest p-1 ${images.length === 1 ? 'grid-cols-1' : 'grid-cols-2'} ${className}`}>
+      {images.map((image, imageIndex) => (
+        <img
+          key={image}
+          src={imagePath(image)}
+          alt={getAlt(imageIndex)}
+          className={`h-48 w-full object-cover ${images.length === 3 && imageIndex === 0 ? 'col-span-2 h-56' : ''}`}
+        />
+      ))}
+    </div>
+  );
+}
+
 function RasiCard({ item, index }) {
   return (
     <article
       className="motion-card overflow-hidden rounded-lg border border-forest/10 bg-white shadow-premium"
       style={{ animationDelay: `${index * 45}ms` }}
     >
-      <div className={`grid gap-1 bg-forest p-1 ${item.images.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-        {item.images.map((image, imageIndex) => (
-          <img
-            key={image}
-            src={imagePath(image)}
-            alt={`${item.name} ராசி யந்திரம் ${imageIndex + 1}`}
-            className={`h-52 w-full object-cover ${item.images.length === 3 && imageIndex === 0 ? 'col-span-2' : ''}`}
-          />
-        ))}
-      </div>
+      <ImageGrid
+        images={item.images}
+        getAlt={(imageIndex) => `${item.name} ராசி யந்திரம் ${imageIndex + 1}`}
+      />
       <div className="p-5 sm:p-6">
         <div className="mb-4 flex items-center justify-between gap-3">
           <span className="inline-flex items-center gap-2 rounded-full bg-gold/14 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.16em] text-gold">
@@ -171,21 +180,16 @@ function RasiCard({ item, index }) {
         <p className="mt-4 rounded-lg border border-forest/10 bg-mist/70 p-4 text-base font-semibold leading-8 text-forest">
           {item.yantra}
         </p>
-        <div className="mt-5">
-          <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.18em] text-gold">
-            எழுதும் காட்சி
-          </p>
-          <div className={`grid gap-2 ${item.writingImages.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-            {item.writingImages.map((image, imageIndex) => (
-              <img
-                key={image}
-                src={imagePath(image)}
-                alt={`${item.name} ராசி எழுதும் காட்சி ${imageIndex + 1}`}
-                className="h-40 w-full rounded-lg object-cover"
-              />
-            ))}
-          </div>
-        </div>
+      </div>
+      <div className="border-t border-forest/10 bg-pearl/70 p-4">
+        <p className="mb-3 text-xs font-extrabold uppercase tracking-[0.18em] text-gold">
+          எழுதும் காட்சி
+        </p>
+        <ImageGrid
+          images={item.writingImages}
+          getAlt={(imageIndex) => `${item.name} ராசி எழுதும் காட்சி ${imageIndex + 1}`}
+          className="overflow-hidden rounded-lg"
+        />
       </div>
     </article>
   );
