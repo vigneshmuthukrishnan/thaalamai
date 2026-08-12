@@ -1,7 +1,9 @@
 export const phoneNumber = '8148098133';
 export const logoSrc = '/logo.jpeg';
 export const reikiPageLink = '/Reiki-Sound-Healing';
-export const paymentPageLink = `${reikiPageLink}/payment`;
+export const thirunangaiArulvakkuPageLink = '/THIRUNANGAI-ARULVAKKU';
+export const paymentPageLink = '/payment';
+const selectedServiceOfferStorageKey = 'thaalam:selected-service-offer';
 
 export const serviceOffers = [
   {
@@ -34,8 +36,33 @@ export const serviceOffers = [
 
 export const serviceOffer = serviceOffers[0];
 
-export function getServiceOfferByPaymentPath(pathname) {
+function normalizePath(pathname) {
   const normalizedPath = pathname.replace(/\/+$/, '').toLowerCase() || '/';
+  return normalizedPath;
+}
+
+export function rememberServiceOffer(offerId) {
+  try {
+    window.sessionStorage.setItem(selectedServiceOfferStorageKey, offerId);
+  } catch {
+    // Session storage may be unavailable in private or restricted browser contexts.
+  }
+}
+
+export function getServiceOfferById(offerId) {
+  return serviceOffers.find((offer) => offer.id === offerId) || null;
+}
+
+export function getSelectedServiceOffer() {
+  try {
+    return getServiceOfferById(window.sessionStorage.getItem(selectedServiceOfferStorageKey));
+  } catch {
+    return null;
+  }
+}
+
+export function getServiceOfferByPaymentPath(pathname) {
+  const normalizedPath = normalizePath(pathname);
 
   return (
     serviceOffers.find((offer) => {
@@ -48,8 +75,12 @@ export function getServiceOfferByPaymentPath(pathname) {
   );
 }
 
+export function getServiceOfferForPayment(pathname) {
+  return getSelectedServiceOffer() || getServiceOfferByPaymentPath(pathname);
+}
+
 export function hasServiceOfferPaymentPath(pathname) {
-  const normalizedPath = pathname.replace(/\/+$/, '').toLowerCase() || '/';
+  const normalizedPath = normalizePath(pathname);
 
   return serviceOffers.some((offer) => {
     const normalizedPaymentPath = offer.paymentPageLink.toLowerCase();

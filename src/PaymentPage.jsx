@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Check, CreditCard, Mail, MapPin, Phone, Sparkles, User } from 'lucide-react';
-import { getServiceOfferByPaymentPath, logoSrc } from './serviceData';
+import { getServiceOfferForPayment, logoSrc } from './serviceData';
 
 const cashfreeOrderUrl =
   import.meta.env.VITE_CASHFREE_ORDER_URL ||
@@ -32,7 +32,7 @@ function loadCashfreeSdk() {
 }
 
 export default function PaymentPage() {
-  const serviceOffer = getServiceOfferByPaymentPath(window.location.pathname);
+  const serviceOffer = getServiceOfferForPayment(window.location.pathname);
   const [customer, setCustomer] = useState({ name: '', email: '', phone: '' });
   const [status, setStatus] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);

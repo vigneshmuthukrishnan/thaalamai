@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ArrowRight,
   Award,
@@ -30,7 +30,13 @@ import {
   Waves,
   Wind,
 } from 'lucide-react';
-import { logoSrc, paymentPageLink, phoneNumber, serviceOffer } from './serviceData';
+import {
+  logoSrc,
+  paymentPageLink,
+  phoneNumber,
+  rememberServiceOffer,
+  serviceOffer,
+} from './serviceData';
 
 const demoClassPrice = `${serviceOffer.amount}Rs`;
 
@@ -352,6 +358,12 @@ function ExperienceSection() {
 }
 
 function ReikiSoundHealing() {
+  const captureServiceOffer = () => rememberServiceOffer(serviceOffer.id);
+
+  useEffect(() => {
+    rememberServiceOffer(serviceOffer.id);
+  }, []);
+
   return (
     <main className="min-h-screen overflow-hidden bg-pearl font-sans text-ink">
       <section className="hero-section relative min-h-screen bg-forest text-white">
@@ -407,6 +419,7 @@ function ReikiSoundHealing() {
               <div className="hero-actions mt-8 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={paymentPageLink}
+                  onClick={captureServiceOffer}
                   className="premium-action inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-forest shadow-glow transition hover:-translate-y-0.5 hover:bg-[#d8a752]"
                 >
                   Reserve for Demo Class ({demoClassPrice})
@@ -473,6 +486,7 @@ function ReikiSoundHealing() {
               <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
                 <a
                   href={paymentPageLink}
+                  onClick={captureServiceOffer}
                   className="premium-action inline-flex items-center justify-center gap-2 rounded-full bg-forest px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-ink"
                 >
                   <Heart size={18} />
@@ -764,6 +778,7 @@ function ReikiSoundHealing() {
                 <div className="mt-8 space-y-3">
                   <a
                     href={paymentPageLink}
+                    onClick={captureServiceOffer}
                     className="premium-action flex w-full items-center justify-center gap-2 rounded-full bg-forest px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-ink"
                   >
                     <MessageCircle size={18} />
@@ -778,6 +793,7 @@ function ReikiSoundHealing() {
                   </a>
                   <a
                     href={paymentPageLink}
+                    onClick={captureServiceOffer}
                     className="premium-action flex w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-forest shadow-glow transition hover:-translate-y-0.5 hover:bg-[#d7aa5b]"
                   >
                     Register for Demo Class ({demoClassPrice})
@@ -792,6 +808,7 @@ function ReikiSoundHealing() {
 
       <a
         href={paymentPageLink}
+        onClick={captureServiceOffer}
         className="fixed inset-x-4 bottom-4 z-30 flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-4 text-sm font-extrabold uppercase tracking-[0.1em] text-forest shadow-glow sm:hidden"
       >
         <MessageCircle size={18} />

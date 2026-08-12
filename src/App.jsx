@@ -30,7 +30,12 @@ import {
 } from "react-icons/fa6";
 import PaymentPage from "./PaymentPage.jsx";
 import ReikiSoundHealing from "./ReikiSoundHealing.jsx";
-import { hasServiceOfferPaymentPath, reikiPageLink } from "./serviceData.js";
+import ThirunangaiArulvakku from "./ThirunangaiArulvakku.jsx";
+import {
+  hasServiceOfferPaymentPath,
+  reikiPageLink,
+  thirunangaiArulvakkuPageLink,
+} from "./serviceData.js";
 
 const navItems = ["Platforms", "Services", "Why Us", "About", "Contact"];
 
@@ -541,6 +546,10 @@ export default function App() {
 
   if (isPagePath(reikiPageLink)) {
     return <ReikiSoundHealing />;
+  }
+
+  if (isPagePath(thirunangaiArulvakkuPageLink)) {
+    return <ThirunangaiArulvakku />;
   }
 
   if (hasServiceOfferPaymentPath(currentPath)) {
