@@ -2,16 +2,21 @@ import React, { useEffect } from 'react';
 import {
   ArrowRight,
   Check,
+  CreditCard,
   Gem,
-  Heart,
   MessageCircle,
   Phone,
-  ShieldCheck,
   Sparkles,
   Star,
   SunMedium,
 } from 'lucide-react';
-import { logoSrc, phoneNumber } from './serviceData';
+import {
+  logoSrc,
+  paymentPageLink,
+  phoneNumber,
+  rememberServiceOffer,
+  shivashakthiAksharamOfferId,
+} from './serviceData';
 
 const imageBasePath = '/THIRUNANGAI%20ARULVAKKU';
 const heroImage = `${imageBasePath}/hero.jpeg`;
@@ -187,8 +192,11 @@ function RasiCard({ item, index }) {
 }
 
 function ThirunangaiArulvakku() {
+  const captureBookingOffer = () => rememberServiceOffer(shivashakthiAksharamOfferId);
+
   useEffect(() => {
     document.title = 'SHIVASHAKTHI AKSHARAM';
+    rememberServiceOffer(shivashakthiAksharamOfferId);
   }, []);
 
   return (
@@ -236,20 +244,21 @@ function ThirunangaiArulvakku() {
                 திருநங்கை கைகளால் ஒவ்வொருவருக்கும் பிரத்தியேகமாக எழுதப்பட்டு
                 பூஜை போட்டு தரப்படுகிறது.
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-8 grid max-w-lg gap-3 sm:grid-cols-2">
                 <a
                   href="#rasi"
-                  className="premium-action inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-forest shadow-glow transition hover:-translate-y-0.5"
+                  className="premium-action flex min-h-14 items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-center text-sm font-extrabold leading-5 text-forest shadow-glow transition hover:-translate-y-0.5"
                 >
                   <Gem size={18} />
-                  ராசி பார்க்க
+                  <span>ராசி பார்க்க</span>
                 </a>
                 <a
-                  href={`tel:+91${phoneNumber}`}
-                  className="premium-action inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/12 px-6 py-4 text-sm font-bold text-white backdrop-blur transition hover:bg-white/20"
+                  href={paymentPageLink}
+                  onClick={captureBookingOffer}
+                  className="premium-action flex min-h-14 items-center justify-center gap-2 rounded-full bg-white px-5 py-3 text-center text-sm font-extrabold leading-5 text-forest transition hover:-translate-y-0.5"
                 >
-                  <Phone size={18} />
-                  Call 81480 98133
+                  <CreditCard size={18} />
+                  <span>Advance Rs.99</span>
                 </a>
               </div>
             </div>
@@ -329,11 +338,12 @@ function ThirunangaiArulvakku() {
             </div>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a
-                href={whatsappLink}
+                href={paymentPageLink}
+                onClick={captureBookingOffer}
                 className="premium-action inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-forest shadow-glow transition hover:-translate-y-0.5"
               >
-                <ShieldCheck size={18} />
-                WhatsApp
+                <CreditCard size={18} />
+                Advance Booking Rs.99
               </a>
               <a
                 href={`tel:+91${phoneNumber}`}
@@ -358,11 +368,12 @@ function ThirunangaiArulvakku() {
       </section>
 
       <a
-        href={whatsappLink}
+        href={paymentPageLink}
+        onClick={captureBookingOffer}
         className="fixed inset-x-4 bottom-4 z-30 flex items-center justify-center gap-2 rounded-full bg-gold px-5 py-4 text-sm font-extrabold uppercase tracking-[0.1em] text-forest shadow-glow sm:hidden"
       >
-        <Heart size={18} />
-        WhatsApp THAALAM
+        <CreditCard size={18} />
+        Advance Booking Rs.99
       </a>
     </main>
   );

@@ -169,7 +169,7 @@ export default function PaymentPage() {
             </div>
 
             <p className="mt-5 text-center text-sm font-extrabold leading-6 text-red-600">
-              Note: The program will be conducted in Tamil
+              {serviceOffer.note || 'Note: The program will be conducted in Tamil'}
             </p>
 
             <form className="mt-5 space-y-3" onSubmit={handleCashfreePayment}>

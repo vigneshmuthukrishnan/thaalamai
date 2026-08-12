@@ -2,7 +2,9 @@ export const phoneNumber = '8148098133';
 export const logoSrc = '/logo.jpeg';
 export const reikiPageLink = '/Reiki-Sound-Healing';
 export const shivashakthiAksharamPageLink = '/shivashakthiAksharam';
+export const shivashakthiAksharamAltPageLink = '/SHIVASHAKTHI-AKSHARAM';
 export const paymentPageLink = '/payment';
+export const shivashakthiAksharamOfferId = 'shivashakthi-aksharam-booking';
 const selectedServiceOfferStorageKey = 'thaalam:selected-service-offer';
 
 export const serviceOffers = [
@@ -30,6 +32,32 @@ export const serviceOffers = [
       'Basic understanding of energy healing and singing bowl vibrations.',
       'A peaceful session to experience calm, focus, and positive energy.',
       'Guidance for the next full workshop or healing program.',
+    ],
+  },
+  {
+    id: shivashakthiAksharamOfferId,
+    pageLink: shivashakthiAksharamPageLink,
+    paymentPageLink,
+    title: 'SHIVASHAKTHI AKSHARAM Advance Booking',
+    shortTitle: 'SHIVASHAKTHI AKSHARAM',
+    badge: 'Advance Booking',
+    priceLabel: 'Advance Booking Fee',
+    expectationsTitle: 'What this booking includes',
+    amount: 99,
+    gstNote: 'Advance only',
+    image: '/THIRUNANGAI%20ARULVAKKU/hero.jpeg',
+    location: 'THAALAM',
+    locationNote: 'Booking details shared after confirmation',
+    language: 'Tamil',
+    duration: 'Personal yantra booking advance',
+    description:
+      'Advance booking for SHIVASHAKTHI AKSHARAM personal yantra guidance.',
+    note: 'Note: This is an advance booking amount only.',
+    expectations: [
+      'Advance confirmation for SHIVASHAKTHI AKSHARAM service.',
+      'Your name, rasi, nakshatra, and problem details will be collected.',
+      'Prasannam-based personal yantra guidance will be shared.',
+      'Final service details and next steps will be confirmed after booking.',
     ],
   },
 ];
