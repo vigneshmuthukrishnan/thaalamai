@@ -31,6 +31,7 @@ import {
 import PaymentPage from "./PaymentPage.jsx";
 import ReikiSoundHealing from "./ReikiSoundHealing.jsx";
 import ThirunangaiArulvakku from "./ThirunangaiArulvakku.jsx";
+import ThaalamYercaud from "./ThaalamYercaud.jsx";
 import {
   hasServiceOfferPaymentPath,
   reikiPageLink,
@@ -520,6 +521,7 @@ function Footer() {
           <p className="text-xl font-black text-ink">Thaalam ai</p>
           <p className="mt-1 text-sm font-semibold text-slate-500">Smart Strategy. Stronger Presence. Real Results.</p>
         </div>
+        <a href="/thaalam-yercaud" className="text-sm font-semibold text-slate-600 transition hover:text-violet">Thaalam Yercaud</a>
         <div className="flex gap-3">
           {platforms.slice(0, 5).map(({ name, icon: Icon }) => (
             <a
@@ -544,6 +546,10 @@ export default function App() {
     const normalizedPageLink = pageLink.toLowerCase();
     return normalizedPath === normalizedPageLink || normalizedPath.endsWith(normalizedPageLink);
   };
+
+  if (isPagePath("/thaalam-yercaud") || isPagePath("/thaalam_yercaud")) {
+    return <ThaalamYercaud />;
+  }
 
   if (isPagePath(reikiPageLink)) {
     return <ReikiSoundHealing />;

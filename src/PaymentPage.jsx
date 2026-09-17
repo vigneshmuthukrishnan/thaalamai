@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight, Check, CreditCard, Mail, MapPin, Phone, Sparkles, User } from 'lucide-react';
 import { getServiceOfferForPayment, logoSrc } from './serviceData';
 
@@ -36,7 +36,13 @@ export default function PaymentPage() {
   const [customer, setCustomer] = useState({ name: '', email: '', phone: '' });
   const [status, setStatus] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const formattedAmount = `Rs. ${serviceOffer.amount}`;
+  const formattedAmount = `₹${serviceOffer.amount.toLocaleString('en-IN')}`;
+
+  useEffect(() => {
+    const previousTitle = document.title;
+    document.title = `${serviceOffer.title} | THAALAM`;
+    return () => { document.title = previousTitle; };
+  }, [serviceOffer.title]);
 
   const updateCustomer = (field) => (event) => {
     setCustomer((current) => ({ ...current, [field]: event.target.value }));
@@ -44,6 +50,7 @@ export default function PaymentPage() {
 
   const handleCashfreePayment = async (event) => {
     event.preventDefault();
+    if (isProcessing) return;
     setIsProcessing(true);
     setStatus('Preparing secure Cashfree checkout...');
 
@@ -148,10 +155,10 @@ export default function PaymentPage() {
           <section className="section-panel rounded-[1.5rem] border border-gold/55 bg-pearl p-5 shadow-premium sm:p-8">
             <div className="text-center">
               <p className="text-xs font-extrabold uppercase tracking-[0.24em] text-gold">
-                Secure Registration
+                {serviceOffer.checkoutLabel || 'Secure Registration'}
               </p>
               <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-ink sm:text-5xl">
-                Are you ready to reserve your seat?
+                {serviceOffer.checkoutTitle || 'Are you ready to reserve your seat?'}
               </h2>
               <p className="mt-6 text-2xl font-black text-ink">
                 {serviceOffer.priceLabel || 'Registration Fee'} {formattedAmount}
@@ -174,9 +181,12 @@ export default function PaymentPage() {
 
             <form className="mt-5 space-y-3" onSubmit={handleCashfreePayment}>
               <label className="relative block">
+                <span className="sr-only">Name</span>
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 text-ink/38" size={17} />
                 <input
                   required
+                  name="name"
+                  autoComplete="name"
                   value={customer.name}
                   onChange={updateCustomer('name')}
                   className="h-12 w-full rounded-lg border border-forest/18 bg-white pl-10 pr-4 text-sm font-semibold outline-none transition focus:border-gold focus:ring-4 focus:ring-gold/15"
@@ -184,10 +194,13 @@ export default function PaymentPage() {
                 />
               </label>
               <label className="relative block">
+                <span className="sr-only">Email ID</span>
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-ink/38" size={17} />
                 <input
                   required
                   type="email"
+                  name="email"
+                  autoComplete="email"
                   value={customer.email}
                   onChange={updateCustomer('email')}
                   className="h-12 w-full rounded-lg border border-forest/18 bg-white pl-10 pr-4 text-sm font-semibold outline-none transition focus:border-gold focus:ring-4 focus:ring-gold/15"
@@ -195,9 +208,13 @@ export default function PaymentPage() {
                 />
               </label>
               <label className="relative block">
+                <span className="sr-only">Phone Number</span>
                 <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-ink/38" size={17} />
                 <input
                   required
+                  type="tel"
+                  name="phone"
+                  autoComplete="tel"
                   value={customer.phone}
                   onChange={updateCustomer('phone')}
                   className="h-12 w-full rounded-lg border border-forest/18 bg-white pl-10 pr-4 text-sm font-semibold outline-none transition focus:border-gold focus:ring-4 focus:ring-gold/15"
@@ -234,7 +251,7 @@ export default function PaymentPage() {
               </div>
 
               {status ? (
-                <p className="rounded-lg bg-gold/12 p-3 text-sm font-semibold leading-6 text-ink/72">
+                <p role="status" aria-live="polite" className="rounded-lg bg-gold/12 p-3 text-sm font-semibold leading-6 text-ink/72">
                   {status}
                 </p>
               ) : null}
@@ -244,7 +261,7 @@ export default function PaymentPage() {
                 disabled={isProcessing}
                 className="premium-action flex w-full items-center justify-center gap-2 rounded-lg bg-[#26a942] px-6 py-4 text-sm font-extrabold uppercase tracking-[0.12em] text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-[#208c39] disabled:cursor-not-allowed disabled:opacity-70"
               >
-                {isProcessing ? 'Processing...' : 'Complete Order'}
+                {isProcessing ? 'Processing...' : serviceOffer.submitLabel || 'Complete Order'}
                 <ArrowRight size={18} />
               </button>
             </form>

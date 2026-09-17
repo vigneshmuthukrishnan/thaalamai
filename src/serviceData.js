@@ -4,10 +4,39 @@ export const reikiPageLink = '/Reiki-Sound-Healing';
 export const shivashakthiAksharamPageLink = '/shivashakthiAksharam';
 export const shivashakthiAksharamAltPageLink = '/SHIVASHAKTHI-AKSHARAM';
 export const paymentPageLink = '/payment';
+export const yercaudPageLink = '/thaalam-yercaud';
+export const yercaudPaymentPageLink = '/thaalam-yercaud/payment';
+export const yercaudOfferId = 'thaalam-yercaud-advance';
 export const shivashakthiAksharamOfferId = 'shivashakthi-aksharam-booking';
 const selectedServiceOfferStorageKey = 'thaalam:selected-service-offer';
 
 export const serviceOffers = [
+  {
+    id: yercaudOfferId,
+    pageLink: yercaudPageLink,
+    paymentPageLink: yercaudPaymentPageLink,
+    title: 'Thaalam Yercaud Advance Payment',
+    shortTitle: 'Thaalam Yercaud',
+    badge: 'Retreat Advance Booking',
+    priceLabel: 'Advance Payment',
+    checkoutLabel: 'Secure Advance Payment',
+    checkoutTitle: 'Reserve your Thaalam Yercaud stay',
+    submitLabel: 'Pay ₹1,000 Advance',
+    expectationsTitle: 'Your retreat booking',
+    amount: 1000,
+    gstNote: 'Advance only',
+    image: '/yercaud/retreat.jpg',
+    location: 'Thaalam, Kommakadu, Yercaud',
+    locationNote: 'Ayurvedic Sound Healing Retreat & Spa',
+    duration: 'Retreat booking advance',
+    description: 'Advance payment for a Thaalam Yercaud retreat booking.',
+    note: 'This ₹1,000 payment is an advance only, not the full retreat package price.',
+    expectations: [
+      '₹1,000 advance payment for your Thaalam Yercaud retreat booking.',
+      'Ayurvedic Sound Healing Retreat & Spa in Kommakadu, Yercaud.',
+      'The remaining amount depends on your selected retreat package.',
+    ],
+  },
   {
     id: 'reiki-sound-healing-workshop', 
     pageLink: reikiPageLink,
@@ -62,7 +91,7 @@ export const serviceOffers = [
   },
 ];
 
-export const serviceOffer = serviceOffers[0];
+export const serviceOffer = serviceOffers.find((offer) => offer.id === 'reiki-sound-healing-workshop');
 
 function normalizePath(pathname) {
   const normalizedPath = pathname.replace(/\/+$/, '').toLowerCase() || '/';
@@ -93,7 +122,7 @@ export function getServiceOfferByPaymentPath(pathname) {
   const normalizedPath = normalizePath(pathname);
 
   return (
-    serviceOffers.find((offer) => {
+    [...serviceOffers].sort((a, b) => b.paymentPageLink.length - a.paymentPageLink.length).find((offer) => {
       const normalizedPaymentPath = offer.paymentPageLink.toLowerCase();
       return (
         normalizedPath === normalizedPaymentPath ||
@@ -104,7 +133,10 @@ export function getServiceOfferByPaymentPath(pathname) {
 }
 
 export function getServiceOfferForPayment(pathname) {
-  return getSelectedServiceOffer() || getServiceOfferByPaymentPath(pathname);
+  const pathOffer = getServiceOfferByPaymentPath(pathname);
+  // A dedicated checkout URL must not be overridden by an earlier booking.
+  if (pathOffer.paymentPageLink !== paymentPageLink) return pathOffer;
+  return getSelectedServiceOffer() || pathOffer;
 }
 
 export function hasServiceOfferPaymentPath(pathname) {
