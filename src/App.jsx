@@ -555,12 +555,12 @@ export default function App() {
 
   // The Tamil Thaalam website is the Intensive Sound Healing page.
   if (isPagePath("/intensive-sound-healing")) {
-    return <IntensiveSoundHealing />;
+    return <ThaalaamWebsite />;
   }
-
+  
   // The original 100-module intensive page is the Thaalam Reiki page.
   if (isPagePath("/thaalam-reiki") || isPagePath("/thaalam_reiki")) {
-    return <ThaalaamWebsite />;
+    return <IntensiveSoundHealing />;
   }
 
   if (isPagePath(reikiPageLink)) {
