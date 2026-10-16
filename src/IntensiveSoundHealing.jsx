@@ -25,7 +25,7 @@ export default function IntensiveSoundHealing() {
       <style>{pageCss}</style>
       <>
 
-<div className="topbar">THAALAM INTENSIVE SOUND HEALING MASTERCLASS · 100-MODULE LEARNING JOURNEY</div>
+<div className="topbar">THAALAM INTENSIVE SOUND HEALING MASTERCLASS · 100 MODULE LEARNING JOURNEY</div>
 <header><div className="wrap nav">
 <a className="brand" href="#home"><span className="brandmark">தா</span><span>THAALAM<small>REIKI • SOUND • STILLNESS</small></span></a>
 <nav className="navlinks"><a href="#journey">The Journey</a><a href="#modules">100 Modules</a><a href="#gallery">Gallery</a><a href="#faq">FAQs</a><a className="btn" href="#enquire">Enquire Now ↗</a></nav>
