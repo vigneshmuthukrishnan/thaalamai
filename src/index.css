@@ -4,6 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* React-mounted versions of the supplied HTML landing pages. */
+.standalone-html-page {
+  min-height: 100dvh;
+}
+
+.standalone-page-error {
+  margin: 0;
+  padding: 3rem 1.25rem;
+  color: #211f1b;
+  text-align: center;
+}
+
 :root {
   color: #071446;
   background: #ffffff;

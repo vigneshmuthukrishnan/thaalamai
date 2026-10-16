@@ -32,6 +32,8 @@ import PaymentPage from "./PaymentPage.jsx";
 import ReikiSoundHealing from "./ReikiSoundHealing.jsx";
 import ThirunangaiArulvakku from "./ThirunangaiArulvakku.jsx";
 import ThaalamYercaud from "./ThaalamYercaud.jsx";
+import IntensiveSoundHealing from "./IntensiveSoundHealing.jsx";
+import ThaalaamWebsite from "./ThaalaamWebsite.jsx";
 import {
   hasServiceOfferPaymentPath,
   reikiPageLink,
@@ -549,6 +551,16 @@ export default function App() {
 
   if (isPagePath("/thaalam-yercaud") || isPagePath("/thaalam_yercaud")) {
     return <ThaalamYercaud />;
+  }
+
+  // The Tamil Thaalam website is the Intensive Sound Healing page.
+  if (isPagePath("/intensive-sound-healing") || isPagePath("/thaalaam-website") || isPagePath("/thaalaam_website")) {
+    return <ThaalaamWebsite />;
+  }
+
+  // The original 100-module intensive page is the Thaalam Reiki page.
+  if (isPagePath("/thaalam-reiki") || isPagePath("/thaalam_reiki")) {
+    return <IntensiveSoundHealing />;
   }
 
   if (isPagePath(reikiPageLink)) {
