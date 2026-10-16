@@ -553,13 +553,13 @@ export default function App() {
     return <ThaalamYercaud />;
   }
 
-  // The Tamil Thaalam website is the Intensive Sound Healing page.
+  // Thaalam Reiki uses the 100-module Intensive Sound Healing experience.
   if (isPagePath("/thaalam_reiki")) {
     return <IntensiveSoundHealing />;
   }
 
-  // The original 100-module intensive page is the Thaalam Reiki page.
-  if (isPagePath("/intensive-sound-healin") || isPagePath("/intensive-sound-healin")) {
+  // Intensive Sound Healin uses the Thaalaam website experience.
+  if (isPagePath("/intensive-sound-healin")) {
     return <ThaalaamWebsite />;
   }
 
