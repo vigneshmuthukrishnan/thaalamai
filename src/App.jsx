@@ -554,7 +554,7 @@ export default function App() {
   }
 
   // The Tamil Thaalam website is the Intensive Sound Healing page.
-  if (isPagePath("/intensive-sound-healing") || isPagePath("/thaalaam-website") || isPagePath("/thaalaam_website")) {
+  if (isPagePath("/intensive-sound-healing")) {
     return <ThaalaamWebsite />;
   }
 
